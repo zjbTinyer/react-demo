@@ -1,0 +1,22 @@
+/* Workflow 管理系统 — 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ReactFlow 在 Ant Design 布局中需要明确的尺寸 */
+.react-flow {
+  width: 100%;
+  height: 100%;
+}
