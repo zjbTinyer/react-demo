@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Card, Form, Input, Select, Button, Space, Divider, message,
-  Modal, Empty,
+  Modal, Empty, Tag,
 } from 'antd';
 import {
   PlusOutlined, DeleteOutlined, ArrowLeftOutlined,
@@ -111,8 +111,9 @@ export default function StepEditor() {
           <Input placeholder="如：HTTP 请求" />
         </Form.Item>
         <Form.Item name="category" label="分类" rules={[{ required: true, message: '请选择分类' }]}>
-          <Select placeholder="选择分类" mode="tags" maxCount={1}
-            tokenSeparators={[',']}
+          <Select placeholder="选择或输入分类"
+            showSearch
+            optionFilterProp="label"
             options={[
               { value: 'HTTP', label: 'HTTP' },
               { value: '审批', label: '审批' },
@@ -245,7 +246,7 @@ export default function StepEditor() {
           <Form.Item name="placeholder" label="占位提示">
             <Input placeholder="输入提示文本" />
           </Form.Item>
-          <Form.Item name="required" label="是否必填" valuePropName="checked">
+          <Form.Item name="required" label="是否必填">
             <Select>
               <Select.Option value={true}>必填</Select.Option>
               <Select.Option value={false}>选填</Select.Option>

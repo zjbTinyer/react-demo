@@ -18,6 +18,7 @@ import StepNode from '../../components/StepNode';
 import WorkflowConfigPanel from '../../components/WorkflowConfigPanel';
 import useWorkflowStore from '../../stores/workflowStore';
 import useInstanceStore from '../../stores/instanceStore';
+import useStepStore from '../../stores/stepStore';
 import { generateId, now } from '../../utils/id';
 
 const { Sider, Content } = Layout;
@@ -48,8 +49,34 @@ export default function WorkflowEditor() {
       if (wf) {
         setWorkflowName(wf.name);
         setWorkflowDesc(wf.description || '');
-        setNodes(wf.nodes || []);
-        setEdges(wf.edges || []);
+
+        // Transform stored flat nodes into ReactFlow node format
+        // Stored: { id, stepDefId, label, position, config }
+        // ReactFlow needs: { id, type, position, data: { label, stepDefId, category, config, configCount } }
+        const stepStore = useStepStore.getState();
+        const rfNodes = (wf.nodes || []).map((n) => {
+          const stepDef = stepStore.getById(n.stepDefId);
+          return {
+            id: n.id,
+            type: 'stepNode',
+            position: n.position,
+            data: {
+              label: n.label,
+              stepDefId: n.stepDefId,
+              category: stepDef?.category || '未知',
+              config: n.config || {},
+              configCount: stepDef?.configSchema?.length || 0,
+            },
+          };
+        });
+
+        const rfEdges = (wf.edges || []).map((e) => ({
+          ...e,
+          markerEnd: { type: MarkerType.ArrowClosed, width: 16, height: 16 },
+        }));
+
+        setNodes(rfNodes);
+        setEdges(rfEdges);
       }
     }
   }, [id, isEdit, getById, setNodes, setEdges]);

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(java -version)",
       "Bash(mvn -v)",
-      "Bash(gradle -v)"
+      "Bash(gradle -v)",
+      "Bash(kill %1)",
+      "WebSearch"
     ]
   }
 }
