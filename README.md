@@ -215,3 +215,12 @@ npm run dev
 npm run build
 npm run preview   # 预览构建产物
 ```
+
+### Vercel 部署
+
+🔗 **预览地址**: [https://react-demo-7erd9wjj6-zjbtinyers-projects.vercel.app](https://react-demo-7erd9wjj6-zjbtinyers-projects.vercel.app)
+
+```bash
+# CLI 部署
+vercel deploy --scope zjbtinyers-projects -y --no-wait
+```
